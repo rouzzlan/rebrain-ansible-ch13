@@ -1,0 +1,296 @@
+INFO     default scenario test matrix: dependency, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun with role_name_check=0...
+INFO     Running default > dependency
+Starting galaxy collection install process
+Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+INFO     Dependency completed successfully.
+WARNING  Skipping, missing the requirements file.
+INFO     Running default > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running default > destroy
+[WARNING]: Could not match supplied host pattern, ignoring: molecule
+
+PLAY [Destroy molecule containers] *********************************************
+skipping: no hosts matched
+
+PLAY [Remove dynamic molecule inventory] ***************************************
+
+TASK [Remove dynamic inventory file] *******************************************
+ok: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Running default > syntax
+[WARNING]: Could not match supplied host pattern, ignoring: molecule
+
+playbook: /home/user/task/roles/nginx/molecule/default/converge.yml
+INFO     Running default > create
+
+PLAY [Create] ******************************************************************
+
+TASK [Create a container] ******************************************************
+changed: [localhost] => (item={'image': 'ubuntu_custom:22.04', 'name': 'molecule-ubuntu-22-04'})
+changed: [localhost] => (item={'image': 'ubuntu_custom:20.04', 'name': 'molecule-ubuntu-20-04'})
+
+TASK [Fail if container is not running] ****************************************
+skipping: [localhost] => (item=/molecule-ubuntu-22-04)
+skipping: [localhost] => (item=/molecule-ubuntu-20-04)
+skipping: [localhost]
+
+TASK [Add container to molecule_inventory] *************************************
+ok: [localhost] => (item=molecule-ubuntu-22-04)
+ok: [localhost] => (item=molecule-ubuntu-20-04)
+
+TASK [Dump molecule_inventory] *************************************************
+[WARNING]: Skipping unexpected key (molecule) in group (all), only "vars",
+"children" and "hosts" are valid
+changed: [localhost]
+
+TASK [Force inventory refresh] *************************************************
+
+TASK [Fail if molecule group is missing] ***************************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Running default > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Running default > converge
+[WARNING]: Skipping unexpected key (molecule) in group (all), only "vars",
+"children" and "hosts" are valid
+
+PLAY [Fail if molecule group is missing] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Print some info] *********************************************************
+ok: [localhost] => {
+    "msg": {
+        "all": [
+            "molecule-ubuntu-20-04",
+            "molecule-ubuntu-22-04"
+        ],
+        "molecule": [
+            "molecule-ubuntu-20-04",
+            "molecule-ubuntu-22-04"
+        ],
+        "ungrouped": []
+    }
+}
+
+TASK [Assert group existence] **************************************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [Set Python 3 as the interpreter] *****************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [Nginx role test] *********************************************************
+included: nginx for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Сollecting only the necessary facts] *****************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Set default value if item is not present in the list] ************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Include tasks for the proper OS] *********************************
+included: /home/user/task/roles/nginx/tasks/debian.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Adding nginx repository key] *************************************
+changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
+
+TASK [nginx : Add Nginx repository on Debian/Ubuntu] ***************************
+changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
+
+TASK [nginx : Install Nginx on Debian/Ubuntu latest version] *******************
+changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
+
+TASK [nginx : Install Nginx on Debian/Ubuntu sepsific version] *****************
+skipping: [molecule-ubuntu-20-04]
+skipping: [molecule-ubuntu-22-04]
+
+TASK [nginx : Include common tasks] ********************************************
+included: /home/user/task/roles/nginx/tasks/generic.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Start Nginx service] *********************************************
+changed: [molecule-ubuntu-20-04]
+changed: [molecule-ubuntu-22-04]
+
+TASK [nginx : Gather the package facts] ****************************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [nginx : Add the fact about nginx version] ********************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Copy the new welcome web page] ***********************************
+changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+molecule-ubuntu-20-04      : ok=14   changed=5    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+molecule-ubuntu-22-04      : ok=14   changed=5    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Running default > idempotence
+[WARNING]: Skipping unexpected key (molecule) in group (all), only "vars",
+"children" and "hosts" are valid
+
+PLAY [Fail if molecule group is missing] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Print some info] *********************************************************
+ok: [localhost] => {
+    "msg": {
+        "all": [
+            "molecule-ubuntu-20-04",
+            "molecule-ubuntu-22-04"
+        ],
+        "molecule": [
+            "molecule-ubuntu-20-04",
+            "molecule-ubuntu-22-04"
+        ],
+        "ungrouped": []
+    }
+}
+
+TASK [Assert group existence] **************************************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [Set Python 3 as the interpreter] *****************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [Nginx role test] *********************************************************
+included: nginx for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Сollecting only the necessary facts] *****************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [nginx : Set default value if item is not present in the list] ************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Include tasks for the proper OS] *********************************
+included: /home/user/task/roles/nginx/tasks/debian.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Adding nginx repository key] *************************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [nginx : Add Nginx repository on Debian/Ubuntu] ***************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Install Nginx on Debian/Ubuntu latest version] *******************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [nginx : Install Nginx on Debian/Ubuntu sepsific version] *****************
+skipping: [molecule-ubuntu-20-04]
+skipping: [molecule-ubuntu-22-04]
+
+TASK [nginx : Include common tasks] ********************************************
+included: /home/user/task/roles/nginx/tasks/generic.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Start Nginx service] *********************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Gather the package facts] ****************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Add the fact about nginx version] ********************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Copy the new welcome web page] ***********************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+molecule-ubuntu-20-04      : ok=14   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+molecule-ubuntu-22-04      : ok=14   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Idempotence completed successfully.
+INFO     Running default > side_effect
+WARNING  Skipping, side effect playbook not configured.
+INFO     Running default > verify
+INFO     Running Ansible Verifier
+[WARNING]: Skipping unexpected key (molecule) in group (all), only "vars",
+"children" and "hosts" are valid
+
+PLAY [Verify] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [Verify NGINX is up and running] ******************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+PLAY RECAP *********************************************************************
+molecule-ubuntu-20-04      : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+molecule-ubuntu-22-04      : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Verifier completed successfully.
+INFO     Running default > cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running default > destroy
+[WARNING]: Skipping unexpected key (molecule) in group (all), only "vars",
+"children" and "hosts" are valid
+
+PLAY [Destroy molecule containers] *********************************************
+
+TASK [Stop and remove container] ***********************************************
+changed: [molecule-ubuntu-20-04 -> localhost]
+changed: [molecule-ubuntu-22-04 -> localhost]
+
+PLAY [Remove dynamic molecule inventory] ***************************************
+
+TASK [Remove dynamic inventory file] *******************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+molecule-ubuntu-20-04      : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+molecule-ubuntu-22-04      : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+INFO     Pruning extra files from scenario ephemeral directory
