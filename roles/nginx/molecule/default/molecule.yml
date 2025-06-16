@@ -1,11 +1,13 @@
 ---
-provisioner:
-  env:
-    ANSIBLE_ROLES_PATH: ../../../
+#provisioner:
+#  env:
+#    ANSIBLE_ROLES_PATH: /home/user/test/roles
 
 platforms:
   - name: molecule-ubuntu-22-04
     image: ubuntu_custom:22.04
+    pre_build_image: true
 
   - name: molecule-ubuntu-20-04
     image: ubuntu_custom:20.04
+    pre_build_image: true
