@@ -1,3 +1,4 @@
+molecule test
 INFO     default scenario test matrix: dependency, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
 INFO     Performing prerun with role_name_check=0...
 INFO     Running default > dependency
@@ -30,8 +31,8 @@ INFO     Running default > create
 PLAY [Create] ******************************************************************
 
 TASK [Create a container] ******************************************************
-changed: [localhost] => (item={'image': 'ubuntu_custom:22.04', 'name': 'molecule-ubuntu-22-04'})
-changed: [localhost] => (item={'image': 'ubuntu_custom:20.04', 'name': 'molecule-ubuntu-20-04'})
+changed: [localhost] => (item={'image': 'ubuntu_custom:22.04', 'name': 'molecule-ubuntu-22-04', 'pre_build_image': True})
+changed: [localhost] => (item={'image': 'ubuntu_custom:20.04', 'name': 'molecule-ubuntu-20-04', 'pre_build_image': True})
 
 TASK [Fail if container is not running] ****************************************
 skipping: [localhost] => (item=/molecule-ubuntu-22-04)
@@ -93,8 +94,8 @@ ok: [localhost] => {
 PLAY [Converge] ****************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
 
 TASK [Set Python 3 as the interpreter] *****************************************
 ok: [molecule-ubuntu-20-04]
@@ -104,8 +105,8 @@ TASK [Nginx role test] *********************************************************
 included: nginx for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Сollecting only the necessary facts] *****************************
-ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
 
 TASK [nginx : Set default value if item is not present in the list] ************
 ok: [molecule-ubuntu-20-04]
@@ -134,8 +135,8 @@ TASK [nginx : Include common tasks] ********************************************
 included: /home/user/task/roles/nginx/tasks/generic.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Start Nginx service] *********************************************
-changed: [molecule-ubuntu-20-04]
 changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
 
 TASK [nginx : Gather the package facts] ****************************************
 ok: [molecule-ubuntu-22-04]
@@ -146,8 +147,8 @@ ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
 
 TASK [nginx : Copy the new welcome web page] ***********************************
-changed: [molecule-ubuntu-22-04]
 changed: [molecule-ubuntu-20-04]
+changed: [molecule-ubuntu-22-04]
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
@@ -198,8 +199,8 @@ TASK [Nginx role test] *********************************************************
 included: nginx for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Сollecting only the necessary facts] *****************************
-ok: [molecule-ubuntu-22-04]
 ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
 
 TASK [nginx : Set default value if item is not present in the list] ************
 ok: [molecule-ubuntu-20-04]
@@ -228,20 +229,20 @@ TASK [nginx : Include common tasks] ********************************************
 included: /home/user/task/roles/nginx/tasks/generic.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Start Nginx service] *********************************************
-ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
 
 TASK [nginx : Gather the package facts] ****************************************
-ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
 
 TASK [nginx : Add the fact about nginx version] ********************************
 ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
 
 TASK [nginx : Copy the new welcome web page] ***********************************
-ok: [molecule-ubuntu-22-04]
 ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
