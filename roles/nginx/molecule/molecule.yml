@@ -1,8 +1,0 @@
----
-provisioner:
-  env:
-    ANSIBLE_ROLES_PATH: /home/user/test/roles
-
-platforms:
-  - name: molecule-ubuntu-22-04
-  - name: molecule-ubuntu-20-04

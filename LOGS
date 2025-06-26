@@ -1,4 +1,11 @@
-molecule test
+user@ansibletask9-hsbmr:~/task/roles/nginx$ molecule test
+CRITICAL 'molecule/default/molecule.yml' glob failed.  Exiting.
+
+
+=====================================================================
+
+
+user@ansibletask9-hsbmr:~/task/roles/nginx$ molecule test
 INFO     default scenario test matrix: dependency, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
 INFO     Performing prerun with role_name_check=0...
 INFO     Running default > dependency
@@ -105,8 +112,8 @@ TASK [Nginx role test] *********************************************************
 included: nginx for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Сollecting only the necessary facts] *****************************
-ok: [molecule-ubuntu-22-04]
 ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
 
 TASK [nginx : Set default value if item is not present in the list] ************
 ok: [molecule-ubuntu-20-04]
@@ -135,8 +142,8 @@ TASK [nginx : Include common tasks] ********************************************
 included: /home/user/task/roles/nginx/tasks/generic.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Start Nginx service] *********************************************
-changed: [molecule-ubuntu-22-04]
 changed: [molecule-ubuntu-20-04]
+changed: [molecule-ubuntu-22-04]
 
 TASK [nginx : Gather the package facts] ****************************************
 ok: [molecule-ubuntu-22-04]
@@ -210,12 +217,12 @@ TASK [nginx : Include tasks for the proper OS] *********************************
 included: /home/user/task/roles/nginx/tasks/debian.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Adding nginx repository key] *************************************
-ok: [molecule-ubuntu-22-04]
 ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
 
 TASK [nginx : Add Nginx repository on Debian/Ubuntu] ***************************
-ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
 
 TASK [nginx : Install Nginx on Debian/Ubuntu latest version] *******************
 ok: [molecule-ubuntu-22-04]
@@ -229,8 +236,8 @@ TASK [nginx : Include common tasks] ********************************************
 included: /home/user/task/roles/nginx/tasks/generic.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
 
 TASK [nginx : Start Nginx service] *********************************************
-ok: [molecule-ubuntu-22-04]
 ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
 
 TASK [nginx : Gather the package facts] ****************************************
 ok: [molecule-ubuntu-22-04]
@@ -241,8 +248,8 @@ ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
 
 TASK [nginx : Copy the new welcome web page] ***********************************
-ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
@@ -264,8 +271,8 @@ ok: [molecule-ubuntu-22-04]
 ok: [molecule-ubuntu-20-04]
 
 TASK [Verify NGINX is up and running] ******************************************
-ok: [molecule-ubuntu-20-04]
 ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
 
 PLAY RECAP *********************************************************************
 molecule-ubuntu-20-04      : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
@@ -295,3 +302,152 @@ molecule-ubuntu-20-04      : ok=1    changed=1    unreachable=0    failed=0    s
 molecule-ubuntu-22-04      : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 INFO     Pruning extra files from scenario ephemeral directory
+
+
+
+=========================================================================
+
+user@ansibletask9-hsbmr:~/task/roles/nginx$ molecule converge
+INFO     default scenario test matrix: dependency, create, prepare, converge
+INFO     Performing prerun with role_name_check=0...
+INFO     Running default > dependency
+Starting galaxy collection install process
+Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+INFO     Dependency completed successfully.
+WARNING  Skipping, missing the requirements file.
+INFO     Running default > create
+
+PLAY [Create] ******************************************************************
+
+TASK [Create a container] ******************************************************
+changed: [localhost] => (item={'image': 'ubuntu_custom:22.04', 'name': 'molecule-ubuntu-22-04', 'pre_build_image': True})
+changed: [localhost] => (item={'image': 'ubuntu_custom:20.04', 'name': 'molecule-ubuntu-20-04', 'pre_build_image': True})
+
+TASK [Fail if container is not running] ****************************************
+skipping: [localhost] => (item=/molecule-ubuntu-22-04)
+skipping: [localhost] => (item=/molecule-ubuntu-20-04)
+skipping: [localhost]
+
+TASK [Add container to molecule_inventory] *************************************
+ok: [localhost] => (item=molecule-ubuntu-22-04)
+ok: [localhost] => (item=molecule-ubuntu-20-04)
+
+TASK [Dump molecule_inventory] *************************************************
+[WARNING]: Skipping unexpected key (molecule) in group (all), only "vars",
+"children" and "hosts" are valid
+changed: [localhost]
+
+TASK [Force inventory refresh] *************************************************
+
+TASK [Fail if molecule group is missing] ***************************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+INFO     Running default > prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Running default > converge
+[WARNING]: Skipping unexpected key (molecule) in group (all), only "vars",
+"children" and "hosts" are valid
+
+PLAY [Fail if molecule group is missing] ***************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Print some info] *********************************************************
+ok: [localhost] => {
+    "msg": {
+        "all": [
+            "molecule-ubuntu-20-04",
+            "molecule-ubuntu-22-04"
+        ],
+        "molecule": [
+            "molecule-ubuntu-20-04",
+            "molecule-ubuntu-22-04"
+        ],
+        "ungrouped": []
+    }
+}
+
+TASK [Assert group existence] **************************************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [Set Python 3 as the interpreter] *****************************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [Nginx role test] *********************************************************
+included: nginx for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Сollecting only the necessary facts] *****************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [nginx : Set default value if item is not present in the list] ************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Include tasks for the proper OS] *********************************
+included: /home/user/task/roles/nginx/tasks/debian.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Adding nginx repository key] *************************************
+changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
+
+TASK [nginx : Add Nginx repository on Debian/Ubuntu] ***************************
+changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
+
+TASK [nginx : Install Nginx on Debian/Ubuntu latest version] *******************
+changed: [molecule-ubuntu-22-04]
+changed: [molecule-ubuntu-20-04]
+
+TASK [nginx : Install Nginx on Debian/Ubuntu sepsific version] *****************
+skipping: [molecule-ubuntu-20-04]
+skipping: [molecule-ubuntu-22-04]
+
+TASK [nginx : Include common tasks] ********************************************
+included: /home/user/task/roles/nginx/tasks/generic.yml for molecule-ubuntu-20-04, molecule-ubuntu-22-04
+
+TASK [nginx : Start Nginx service] *********************************************
+changed: [molecule-ubuntu-20-04]
+changed: [molecule-ubuntu-22-04]
+
+TASK [nginx : Gather the package facts] ****************************************
+ok: [molecule-ubuntu-22-04]
+ok: [molecule-ubuntu-20-04]
+
+TASK [nginx : Add the fact about nginx version] ********************************
+ok: [molecule-ubuntu-20-04]
+ok: [molecule-ubuntu-22-04]
+
+TASK [nginx : Copy the new welcome web page] ***********************************
+changed: [molecule-ubuntu-20-04]
+changed: [molecule-ubuntu-22-04]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+molecule-ubuntu-20-04      : ok=14   changed=5    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+molecule-ubuntu-22-04      : ok=14   changed=5    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+
+user@ansibletask9-hsbmr:~/task/roles/nginx$ docker container ls
+CONTAINER ID   IMAGE                 COMMAND      CREATED              STATUS              PORTS     NAMES
+8f49bd6a1738   ubuntu_custom:20.04   "sleep 1d"   About a minute ago   Up About a minute             molecule-ubuntu-20-04
+9e7cada879db   ubuntu_custom:22.04   "sleep 1d"   About a minute ago   Up About a minute             molecule-ubuntu-22-04
+
+
+
